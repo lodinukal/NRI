@@ -32,7 +32,7 @@ struct CommandBufferD3D11 final : public CommandBufferHelper {
         return m_DeferredContext;
     }
 
-    inline StdAllocator<uint8_t>& CommandBufferD3D11::GetStdAllocator() const {
+    inline StdAllocator<uint8_t>& GetStdAllocator() const {
         return m_Device.GetStdAllocator();
     }
 

@@ -1142,8 +1142,8 @@ void DeviceVK::GetAccelerationStructureBuildSizesInfo(const AccelerationStructur
     }
 
     VkAccelerationStructureBuildGeometryInfoKHR buildInfo = {VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR};
-    buildInfo.type = GetAccelerationStructureType(accelerationStructureDesc.type);
-    buildInfo.flags = GetAccelerationStructureBuildFlags(accelerationStructureDesc.flags);
+    buildInfo.type = GetAccelerationStructureTypeVk(accelerationStructureDesc.type);
+    buildInfo.flags = GetAccelerationStructureBuildFlagsVk(accelerationStructureDesc.flags);
     buildInfo.geometryCount = geometryCount;
     buildInfo.pGeometries = geometries;
 

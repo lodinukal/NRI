@@ -4,6 +4,8 @@
 
 #include <d3d12.h>
 
+#define D3D_HIGHEST_SHADER_MODEL D3D_SHADER_MODEL_6_7
+
 #include "SharedExternal.h"
 
 typedef size_t DescriptorPointerCPU;
@@ -53,12 +55,12 @@ void ConvertGeometryDescs(D3D12_RAYTRACING_GEOMETRY_DESC* geometryDescs, const G
 bool GetTextureDesc(const TextureD3D12Desc& textureD3D12Desc, TextureDesc& textureDesc);
 bool GetBufferDesc(const BufferD3D12Desc& bufferD3D12Desc, BufferDesc& bufferDesc);
 uint64_t GetMemorySizeD3D12(const MemoryD3D12Desc& memoryD3D12Desc);
-D3D12_RESIDENCY_PRIORITY ConvertPriority(float priority);
+D3D12_RESIDENCY_PRIORITY ConvertPriorityD3D12(float priority);
 
 D3D12_HEAP_TYPE GetHeapType(MemoryLocation memoryLocation);
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE GetAccelerationStructureType(AccelerationStructureType accelerationStructureType);
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS GetAccelerationStructureBuildFlags(AccelerationStructureBuildBits accelerationStructureBuildFlags);
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE GetCopyMode(CopyMode copyMode);
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE GetAccelerationStructureTypeD3D12(AccelerationStructureType accelerationStructureType);
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS GetAccelerationStructureBuildFlagsD3D12(AccelerationStructureBuildBits accelerationStructureBuildFlags);
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE GetCopyModeD3D12(CopyMode copyMode);
 D3D12_RESOURCE_FLAGS GetBufferFlags(BufferUsageBits bufferUsage);
 D3D12_RESOURCE_FLAGS GetTextureFlags(TextureUsageBits textureUsage);
 D3D12_FILTER GetFilterIsotropic(Filter mip, Filter magnification, Filter minification, FilterExt filterExt, bool useComparison);
@@ -71,17 +73,17 @@ D3D12_HEAP_FLAGS GetHeapFlags(MemoryType memoryType);
 D3D12_PRIMITIVE_TOPOLOGY_TYPE GetPrimitiveTopologyType(Topology topology);
 D3D_PRIMITIVE_TOPOLOGY GetPrimitiveTopology(Topology topology, uint8_t tessControlPointNum);
 D3D12_FILL_MODE GetFillMode(FillMode fillMode);
-D3D12_CULL_MODE GetCullMode(CullMode cullMode);
-D3D12_STENCIL_OP GetStencilOp(StencilFunc stencilFunc);
+D3D12_CULL_MODE GetCullModeD3D12(CullMode cullMode);
+D3D12_STENCIL_OP GetStencilOpD3D12(StencilFunc stencilFunc);
 UINT8 GetRenderTargetWriteMask(ColorWriteBits colorWriteMask);
-D3D12_LOGIC_OP GetLogicOp(LogicFunc logicFunc);
+D3D12_LOGIC_OP GetLogicOpD3D12(LogicFunc logicFunc);
 D3D12_BLEND GetBlend(BlendFactor blendFactor);
-D3D12_BLEND_OP GetBlendOp(BlendFunc blendFunc);
+D3D12_BLEND_OP GetBlendOpD3D12(BlendFunc blendFunc);
 D3D12_SHADER_VISIBILITY GetShaderVisibility(StageBits shaderStage);
 D3D12_DESCRIPTOR_RANGE_TYPE GetDescriptorRangesType(DescriptorType descriptorType);
 D3D12_RESOURCE_DIMENSION GetResourceDimension(TextureType textureType);
-D3D12_SHADING_RATE GetShadingRate(ShadingRate shadingRate);
-D3D12_SHADING_RATE_COMBINER GetShadingRateCombiner(ShadingRateCombiner shadingRateCombiner);
+D3D12_SHADING_RATE GetShadingRateD3D12(ShadingRate shadingRate);
+D3D12_SHADING_RATE_COMBINER GetShadingRateD3D12Combiner(ShadingRateCombiner shadingRateCombiner);
 } // namespace nri
 
 #if NRI_USE_EXT_LIBS

@@ -53,3 +53,6 @@ NRIAgilitySDK.h
 _Bin/
 _Build/
 _NRI_SDK/
+
+.zig-cache
+zig-out/

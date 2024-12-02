@@ -110,7 +110,7 @@ Result PipelineVK::Create(const GraphicsPipelineDesc& graphicsPipelineDesc) {
     rasterizationState.depthClampEnable = r.depthClamp;
     rasterizationState.rasterizerDiscardEnable = VK_FALSE; // TODO: D3D doesn't have this
     rasterizationState.polygonMode = GetPolygonMode(r.fillMode);
-    rasterizationState.cullMode = GetCullMode(r.cullMode);
+    rasterizationState.cullMode = GetCullModeVk(r.cullMode);
     rasterizationState.frontFace = r.frontCounterClockwise ? VK_FRONT_FACE_COUNTER_CLOCKWISE : VK_FRONT_FACE_CLOCKWISE;
     rasterizationState.depthBiasEnable = IsDepthBiasEnabled(r.depthBias) ? VK_TRUE : VK_FALSE;
     rasterizationState.depthBiasConstantFactor = r.depthBias.constant;
@@ -148,16 +148,16 @@ Result PipelineVK::Create(const GraphicsPipelineDesc& graphicsPipelineDesc) {
     depthStencilState.minDepthBounds = 0.0f;
     depthStencilState.maxDepthBounds = 1.0f;
 
-    depthStencilState.front.failOp = GetStencilOp(sa.front.fail);
-    depthStencilState.front.passOp = GetStencilOp(sa.front.pass);
-    depthStencilState.front.depthFailOp = GetStencilOp(sa.front.depthFail);
+    depthStencilState.front.failOp = GetStencilOpVK(sa.front.fail);
+    depthStencilState.front.passOp = GetStencilOpVK(sa.front.pass);
+    depthStencilState.front.depthFailOp = GetStencilOpVK(sa.front.depthFail);
     depthStencilState.front.compareOp = GetCompareOp(sa.front.compareFunc);
     depthStencilState.front.compareMask = sa.front.compareMask;
     depthStencilState.front.writeMask = sa.front.writeMask;
 
-    depthStencilState.back.failOp = GetStencilOp(sa.back.fail);
-    depthStencilState.back.passOp = GetStencilOp(sa.back.pass);
-    depthStencilState.back.depthFailOp = GetStencilOp(sa.back.depthFail);
+    depthStencilState.back.failOp = GetStencilOpVK(sa.back.fail);
+    depthStencilState.back.passOp = GetStencilOpVK(sa.back.pass);
+    depthStencilState.back.depthFailOp = GetStencilOpVK(sa.back.depthFail);
     depthStencilState.back.compareOp = GetCompareOp(sa.back.compareFunc);
     depthStencilState.back.compareMask = sa.back.compareMask;
     depthStencilState.back.writeMask = sa.back.writeMask;
@@ -168,7 +168,7 @@ Result PipelineVK::Create(const GraphicsPipelineDesc& graphicsPipelineDesc) {
 
     VkPipelineColorBlendStateCreateInfo colorBlendState = {VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO};
     colorBlendState.logicOpEnable = om.logicFunc != LogicFunc::NONE ? VK_TRUE : VK_FALSE;
-    colorBlendState.logicOp = GetLogicOp(om.logicFunc);
+    colorBlendState.logicOp = GetLogicOpVK(om.logicFunc);
     colorBlendState.attachmentCount = om.colorNum;
     colorBlendState.pAttachments = scratch;
 
@@ -181,10 +181,10 @@ Result PipelineVK::Create(const GraphicsPipelineDesc& graphicsPipelineDesc) {
             VkBool32(attachmentDesc.blendEnabled),
             GetBlendFactor(attachmentDesc.colorBlend.srcFactor),
             GetBlendFactor(attachmentDesc.colorBlend.dstFactor),
-            GetBlendOp(attachmentDesc.colorBlend.func),
+            GetBlendOpVK(attachmentDesc.colorBlend.func),
             GetBlendFactor(attachmentDesc.alphaBlend.srcFactor),
             GetBlendFactor(attachmentDesc.alphaBlend.dstFactor),
-            GetBlendOp(attachmentDesc.alphaBlend.func),
+            GetBlendOpVK(attachmentDesc.alphaBlend.func),
             GetColorComponent(attachmentDesc.colorWriteMask),
         };
 

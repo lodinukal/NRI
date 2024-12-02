@@ -658,8 +658,8 @@ void DeviceD3D12::GetAccelerationStructureMemoryDesc(const AccelerationStructure
 void DeviceD3D12::GetAccelerationStructurePrebuildInfo(
     const AccelerationStructureDesc& accelerationStructureDesc, D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO& prebuildInfo) {
     D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS accelerationStructureInputs = {};
-    accelerationStructureInputs.Type = GetAccelerationStructureType(accelerationStructureDesc.type);
-    accelerationStructureInputs.Flags = GetAccelerationStructureBuildFlags(accelerationStructureDesc.flags);
+    accelerationStructureInputs.Type = GetAccelerationStructureTypeD3D12(accelerationStructureDesc.type);
+    accelerationStructureInputs.Flags = GetAccelerationStructureBuildFlagsD3D12(accelerationStructureDesc.flags);
     accelerationStructureInputs.NumDescs = accelerationStructureDesc.instanceOrGeometryObjectNum;
     accelerationStructureInputs.DescsLayout = D3D12_ELEMENTS_LAYOUT_ARRAY; // TODO: D3D12_ELEMENTS_LAYOUT_ARRAY_OF_POINTERS support?
 

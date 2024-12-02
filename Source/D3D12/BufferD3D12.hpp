@@ -81,7 +81,7 @@ Result BufferD3D12::BindMemory(const MemoryD3D12* memory, uint64_t offset) {
     }
 
     // Priority
-    D3D12_RESIDENCY_PRIORITY residencyPriority = (D3D12_RESIDENCY_PRIORITY)ConvertPriority(memory->GetPriority());
+    D3D12_RESIDENCY_PRIORITY residencyPriority = (D3D12_RESIDENCY_PRIORITY)nri::ConvertPriorityD3D12(memory->GetPriority());
     if (m_Device.GetVersion() >= 1 && residencyPriority != 0) {
         ID3D12Pageable* obj = m_Buffer.GetInterface();
         HRESULT hr = m_Device->SetResidencyPriority(1, &obj, &residencyPriority);

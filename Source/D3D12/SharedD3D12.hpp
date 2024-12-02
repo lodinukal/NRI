@@ -88,7 +88,7 @@ constexpr std::array<D3D12_CULL_MODE, (size_t)CullMode::MAX_NUM> CULL_MODES = {
     D3D12_CULL_MODE_BACK   // BACK
 };
 
-D3D12_CULL_MODE nri::GetCullMode(CullMode cullMode) {
+D3D12_CULL_MODE nri::GetCullModeD3D12(CullMode cullMode) {
     return CULL_MODES[(size_t)cullMode];
 }
 
@@ -123,7 +123,7 @@ constexpr std::array<D3D12_STENCIL_OP, (size_t)StencilFunc::MAX_NUM> STENCIL_OPS
     D3D12_STENCIL_OP_DECR      // DECREMENT_AND_WRAP
 };
 
-D3D12_STENCIL_OP nri::GetStencilOp(StencilFunc stencilFunc) {
+D3D12_STENCIL_OP nri::GetStencilOpD3D12(StencilFunc stencilFunc) {
     return STENCIL_OPS[(size_t)stencilFunc];
 }
 
@@ -146,7 +146,7 @@ constexpr std::array<D3D12_LOGIC_OP, (size_t)LogicFunc::MAX_NUM> LOGIC_OPS = {
     D3D12_LOGIC_OP_SET            // SET
 };
 
-D3D12_LOGIC_OP nri::GetLogicOp(LogicFunc logicFunc) {
+D3D12_LOGIC_OP nri::GetLogicOpD3D12(LogicFunc logicFunc) {
     return LOGIC_OPS[(size_t)logicFunc];
 }
 
@@ -190,7 +190,7 @@ constexpr std::array<D3D12_BLEND_OP, (size_t)BlendFunc::MAX_NUM> BLEND_OPS = {
     D3D12_BLEND_OP_MAX           // MAX
 };
 
-D3D12_BLEND_OP nri::GetBlendOp(BlendFunc blendFunc) {
+D3D12_BLEND_OP nri::GetBlendOpD3D12(BlendFunc blendFunc) {
     return BLEND_OPS[(size_t)blendFunc];
 }
 
@@ -223,7 +223,7 @@ constexpr std::array<D3D12_SHADING_RATE, (size_t)ShadingRate::MAX_NUM> SHADING_R
     D3D12_SHADING_RATE_4X4, // FRAGMENT_SIZE_4X4
 };
 
-D3D12_SHADING_RATE nri::GetShadingRate(ShadingRate shadingRate) {
+D3D12_SHADING_RATE nri::GetShadingRateD3D12(ShadingRate shadingRate) {
     return SHADING_RATES[(size_t)shadingRate];
 }
 
@@ -235,7 +235,7 @@ constexpr std::array<D3D12_SHADING_RATE_COMBINER, (size_t)ShadingRate::MAX_NUM> 
     D3D12_SHADING_RATE_COMBINER_SUM,         // SUM,
 };
 
-D3D12_SHADING_RATE_COMBINER nri::GetShadingRateCombiner(ShadingRateCombiner shadingRateCombiner) {
+D3D12_SHADING_RATE_COMBINER nri::GetShadingRateD3D12Combiner(ShadingRateCombiner shadingRateCombiner) {
     return SHADING_RATE_COMBINERS[(size_t)shadingRateCombiner];
 }
 
@@ -333,14 +333,14 @@ D3D12_RESOURCE_FLAGS nri::GetTextureFlags(TextureUsageBits textureUsage) {
     return flags;
 }
 
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE nri::GetAccelerationStructureType(AccelerationStructureType accelerationStructureType) {
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE nri::GetAccelerationStructureTypeD3D12(AccelerationStructureType accelerationStructureType) {
     static_assert(D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL == (uint32_t)AccelerationStructureType::TOP_LEVEL, "Enum mismatch");
     static_assert(D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL == (uint32_t)AccelerationStructureType::BOTTOM_LEVEL, "Enum mismatch");
 
     return (D3D12_RAYTRACING_ACCELERATION_STRUCTURE_TYPE)accelerationStructureType;
 }
 
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS nri::GetAccelerationStructureBuildFlags(AccelerationStructureBuildBits accelerationStructureBuildFlags) {
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAGS nri::GetAccelerationStructureBuildFlagsD3D12(AccelerationStructureBuildBits accelerationStructureBuildFlags) {
     static_assert(D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_ALLOW_UPDATE == (uint32_t)AccelerationStructureBuildBits::ALLOW_UPDATE, "Enum mismatch");
     static_assert(D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_ALLOW_COMPACTION == (uint32_t)AccelerationStructureBuildBits::ALLOW_COMPACTION, "Enum mismatch");
     static_assert(D3D12_RAYTRACING_ACCELERATION_STRUCTURE_BUILD_FLAG_PREFER_FAST_TRACE == (uint32_t)AccelerationStructureBuildBits::PREFER_FAST_TRACE, "Enum mismatch");
@@ -364,7 +364,7 @@ D3D12_RAYTRACING_GEOMETRY_FLAGS GetGeometryFlags(BottomLevelGeometryBits geometr
     return (D3D12_RAYTRACING_GEOMETRY_FLAGS)geometryFlagMask;
 }
 
-D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE nri::GetCopyMode(CopyMode copyMode) {
+D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE nri::GetCopyModeD3D12(CopyMode copyMode) {
     static_assert(D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_CLONE == (uint32_t)CopyMode::CLONE, "Enum mismatch");
     static_assert(D3D12_RAYTRACING_ACCELERATION_STRUCTURE_COPY_MODE_COMPACT == (uint32_t)CopyMode::COMPACT, "Enum mismatch");
 
@@ -399,7 +399,7 @@ uint64_t nri::GetMemorySizeD3D12(const MemoryD3D12Desc& memoryD3D12Desc) {
     return memoryD3D12Desc.d3d12Heap->GetDesc().SizeInBytes;
 }
 
-D3D12_RESIDENCY_PRIORITY nri::ConvertPriority(float priority) {
+D3D12_RESIDENCY_PRIORITY nri::ConvertPriorityD3D12(float priority) {
     if (priority == 0.0f)
         return (D3D12_RESIDENCY_PRIORITY)0;
 

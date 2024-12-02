@@ -2,6 +2,7 @@
 
 #pragma once
 
+#define D3D10_ARBITRARY_HEADER_ORDERING
 #include <d3d11_4.h>
 
 #include "SharedExternal.h"
@@ -35,7 +36,7 @@ D3D11_BLEND GetD3D11BlendFromBlendFactor(BlendFactor blendFactor);
 D3D11_LOGIC_OP GetyD3D11LogicOp(LogicFunc logicalFunc);
 bool GetTextureDesc(const TextureD3D11Desc& textureD3D11Desc, TextureDesc& textureDesc);
 bool GetBufferDesc(const BufferD3D11Desc& bufferD3D11Desc, BufferDesc& bufferDesc);
-uint32_t ConvertPriority(float priority);
+uint32_t ConvertPriorityD3D11(float priority);
 
 struct SubresourceInfo {
     const void* resource = nullptr;

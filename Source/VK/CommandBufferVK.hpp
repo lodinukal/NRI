@@ -128,10 +128,10 @@ NRI_INLINE void CommandBufferVK::SetBlendConstants(const Color32f& color) {
 }
 
 NRI_INLINE void CommandBufferVK::SetShadingRate(const ShadingRateDesc& shadingRateDesc) {
-    VkExtent2D shadingRate = GetShadingRate(shadingRateDesc.shadingRate);
+    VkExtent2D shadingRate = GetShadingRateVK(shadingRateDesc.shadingRate);
     VkFragmentShadingRateCombinerOpKHR combiners[2] = {
-        GetShadingRateCombiner(shadingRateDesc.primitiveCombiner),
-        GetShadingRateCombiner(shadingRateDesc.attachmentCombiner),
+        GetShadingRateVKCombiner(shadingRateDesc.primitiveCombiner),
+        GetShadingRateVKCombiner(shadingRateDesc.attachmentCombiner),
     };
 
     const auto& vk = m_Device.GetDispatchTable();
@@ -864,7 +864,7 @@ NRI_INLINE void CommandBufferVK::BuildTopLevelAccelerationStructure(uint32_t ins
     VkAccelerationStructureBuildGeometryInfoKHR buildGeometryInfo = {VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR};
     buildGeometryInfo.mode = VK_BUILD_ACCELERATION_STRUCTURE_MODE_BUILD_KHR;
     buildGeometryInfo.type = VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR;
-    buildGeometryInfo.flags = GetAccelerationStructureBuildFlags(flags);
+    buildGeometryInfo.flags = GetAccelerationStructureBuildFlagsVk(flags);
     buildGeometryInfo.dstAccelerationStructure = dstASHandle;
     buildGeometryInfo.geometryCount = 1;
     buildGeometryInfo.pGeometries = &geometry;
@@ -891,7 +891,7 @@ NRI_INLINE void CommandBufferVK::BuildBottomLevelAccelerationStructure(uint32_t 
     VkAccelerationStructureBuildGeometryInfoKHR buildGeometryInfo = {VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR};
     buildGeometryInfo.mode = VK_BUILD_ACCELERATION_STRUCTURE_MODE_BUILD_KHR;
     buildGeometryInfo.type = VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR;
-    buildGeometryInfo.flags = GetAccelerationStructureBuildFlags(flags);
+    buildGeometryInfo.flags = GetAccelerationStructureBuildFlagsVk(flags);
     buildGeometryInfo.dstAccelerationStructure = dstASHandle;
     buildGeometryInfo.geometryCount = geometryObjectNum;
     buildGeometryInfo.pGeometries = geometries;
@@ -920,7 +920,7 @@ NRI_INLINE void CommandBufferVK::UpdateTopLevelAccelerationStructure(uint32_t in
     VkAccelerationStructureBuildGeometryInfoKHR buildGeometryInfo = {VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR};
     buildGeometryInfo.mode = VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR;
     buildGeometryInfo.type = VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR;
-    buildGeometryInfo.flags = GetAccelerationStructureBuildFlags(flags);
+    buildGeometryInfo.flags = GetAccelerationStructureBuildFlagsVk(flags);
     buildGeometryInfo.srcAccelerationStructure = srcASHandle;
     buildGeometryInfo.dstAccelerationStructure = dstASHandle;
     buildGeometryInfo.geometryCount = 1;
@@ -950,7 +950,7 @@ NRI_INLINE void CommandBufferVK::UpdateBottomLevelAccelerationStructure(uint32_t
     VkAccelerationStructureBuildGeometryInfoKHR buildGeometryInfo = {VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR};
     buildGeometryInfo.mode = VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR;
     buildGeometryInfo.type = VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR;
-    buildGeometryInfo.flags = GetAccelerationStructureBuildFlags(flags);
+    buildGeometryInfo.flags = GetAccelerationStructureBuildFlagsVk(flags);
     buildGeometryInfo.srcAccelerationStructure = srcASHandle;
     buildGeometryInfo.dstAccelerationStructure = dstASHandle;
     buildGeometryInfo.geometryCount = geometryObjectNum;
@@ -970,7 +970,7 @@ NRI_INLINE void CommandBufferVK::CopyAccelerationStructure(AccelerationStructure
     VkCopyAccelerationStructureInfoKHR info = {VK_STRUCTURE_TYPE_COPY_ACCELERATION_STRUCTURE_INFO_KHR};
     info.src = srcASHandle;
     info.dst = dstASHandle;
-    info.mode = GetCopyMode(copyMode);
+    info.mode = GetCopyModeVK(copyMode);
 
     const auto& vk = m_Device.GetDispatchTable();
     vk.CmdCopyAccelerationStructureKHR(m_Handle, &info);

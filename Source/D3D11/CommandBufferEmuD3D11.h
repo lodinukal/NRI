@@ -24,11 +24,11 @@ struct CommandBufferEmuD3D11 final : public CommandBufferHelper {
     // CommandBufferHelper
     //================================================================================================================
 
-    inline ID3D11DeviceContext* CommandBufferEmuD3D11::GetNativeObject() const {
+    inline ID3D11DeviceContext* GetNativeObject() const {
         return m_Device.GetImmediateContext();
     }
 
-    inline StdAllocator<uint8_t>& CommandBufferEmuD3D11::GetStdAllocator() const {
+    inline StdAllocator<uint8_t>& GetStdAllocator() const {
         return m_Device.GetStdAllocator();
     }
 

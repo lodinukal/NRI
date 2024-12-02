@@ -71,7 +71,7 @@ constexpr std::array<VkCullModeFlags, (size_t)CullMode::MAX_NUM> CULL_MODES = {
     VK_CULL_MODE_BACK_BIT   // BACK
 };
 
-constexpr VkCullModeFlags GetCullMode(CullMode cullMode) {
+constexpr VkCullModeFlags GetCullModeVk(CullMode cullMode) {
     return CULL_MODES[(size_t)cullMode];
 }
 
@@ -111,7 +111,7 @@ constexpr std::array<VkStencilOp, (size_t)StencilFunc::MAX_NUM> STENCIL_OP = {
     VK_STENCIL_OP_DECREMENT_AND_WRAP   // DECREMENT_AND_WRAP
 };
 
-constexpr VkStencilOp GetStencilOp(StencilFunc stencilFunc) {
+constexpr VkStencilOp GetStencilOpVK(StencilFunc stencilFunc) {
     return STENCIL_OP[(size_t)stencilFunc];
 }
 
@@ -134,7 +134,7 @@ constexpr std::array<VkLogicOp, (size_t)LogicFunc::MAX_NUM> LOGIC_OP = {
     VK_LOGIC_OP_SET            // SET
 };
 
-constexpr VkLogicOp GetLogicOp(LogicFunc logicFunc) {
+constexpr VkLogicOp GetLogicOpVK(LogicFunc logicFunc) {
     return LOGIC_OP[(size_t)logicFunc];
 }
 
@@ -172,7 +172,7 @@ constexpr std::array<VkBlendOp, (size_t)BlendFunc::MAX_NUM> BLEND_OP = {
     VK_BLEND_OP_MAX               // MAX
 };
 
-constexpr VkBlendOp GetBlendOp(BlendFunc blendFunc) {
+constexpr VkBlendOp GetBlendOpVK(BlendFunc blendFunc) {
     return BLEND_OP[(size_t)blendFunc];
 }
 
@@ -351,7 +351,7 @@ constexpr std::array<VkFragmentShadingRateCombinerOpKHR, (size_t)ShadingRateComb
     VK_FRAGMENT_SHADING_RATE_COMBINER_OP_MUL_KHR,     // SUM, // TODO: SUM vs MUL?
 };
 
-constexpr VkFragmentShadingRateCombinerOpKHR GetShadingRateCombiner(ShadingRateCombiner combiner) {
+constexpr VkFragmentShadingRateCombinerOpKHR GetShadingRateVKCombiner(ShadingRateCombiner combiner) {
     return SHADING_RATE_COMBINER[(size_t)combiner];
 }
 
@@ -567,14 +567,14 @@ constexpr VkColorComponentFlags GetColorComponent(ColorWriteBits colorWriteMask)
     return VkColorComponentFlags(colorWriteMask & ColorWriteBits::RGBA);
 }
 
-constexpr VkAccelerationStructureTypeKHR GetAccelerationStructureType(AccelerationStructureType type) {
+constexpr VkAccelerationStructureTypeKHR GetAccelerationStructureTypeVk(AccelerationStructureType type) {
     static_assert(VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR == (uint32_t)AccelerationStructureType::TOP_LEVEL, "Enum mismatch");
     static_assert(VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR == (uint32_t)AccelerationStructureType::BOTTOM_LEVEL, "Enum mismatch");
 
     return (VkAccelerationStructureTypeKHR)type;
 }
 
-constexpr VkBuildAccelerationStructureFlagsKHR GetAccelerationStructureBuildFlags(AccelerationStructureBuildBits flags) {
+constexpr VkBuildAccelerationStructureFlagsKHR GetAccelerationStructureBuildFlagsVk(AccelerationStructureBuildBits flags) {
     static_assert(VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_UPDATE_BIT_KHR == (uint32_t)AccelerationStructureBuildBits::ALLOW_UPDATE, "Enum mismatch");
     static_assert(VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_COMPACTION_BIT_KHR == (uint32_t)AccelerationStructureBuildBits::ALLOW_COMPACTION, "Enum mismatch");
     static_assert(VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_TRACE_BIT_KHR == (uint32_t)AccelerationStructureBuildBits::PREFER_FAST_TRACE, "Enum mismatch");
@@ -598,7 +598,7 @@ constexpr VkGeometryTypeKHR GetGeometryType(GeometryType geometryType) {
     return (VkGeometryTypeKHR)geometryType;
 }
 
-constexpr VkCopyAccelerationStructureModeKHR GetCopyMode(CopyMode copyMode) {
+constexpr VkCopyAccelerationStructureModeKHR GetCopyModeVK(CopyMode copyMode) {
     static_assert(VK_COPY_ACCELERATION_STRUCTURE_MODE_CLONE_KHR == (uint32_t)CopyMode::CLONE, "Enum mismatch");
     static_assert(VK_COPY_ACCELERATION_STRUCTURE_MODE_COMPACT_KHR == (uint32_t)CopyMode::COMPACT, "Enum mismatch");
 
@@ -615,7 +615,7 @@ inline VkFormat GetVkFormat(Format format, bool demoteSrgb = false) {
     return (VkFormat)NRIFormatToVKFormat(format);
 }
 
-inline VkExtent2D GetShadingRate(ShadingRate shadingRate) {
+inline VkExtent2D GetShadingRateVK(ShadingRate shadingRate) {
     switch (shadingRate) {
         case ShadingRate::FRAGMENT_SIZE_1X1:
             return {1, 1};

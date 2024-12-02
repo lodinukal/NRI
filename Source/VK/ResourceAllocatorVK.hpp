@@ -148,7 +148,7 @@ Result AccelerationStructureVK::Create(const AllocateAccelerationStructureDesc& 
         m_Buffer = (BufferVK*)buffer;
         m_BuildScratchSize = sizesInfo.buildScratchSize;
         m_UpdateScratchSize = sizesInfo.updateScratchSize;
-        m_Type = GetAccelerationStructureType(accelerationStructureDesc.desc.type);
+        m_Type = GetAccelerationStructureTypeVk(accelerationStructureDesc.desc.type);
         m_AccelerationStructureSize = sizesInfo.accelerationStructureSize;
 
         FinishCreation();

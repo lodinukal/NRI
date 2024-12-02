@@ -23,7 +23,7 @@ Result AccelerationStructureVK::Create(const AccelerationStructureDesc& accelera
         m_Buffer = (BufferVK*)buffer;
         m_BuildScratchSize = sizesInfo.buildScratchSize;
         m_UpdateScratchSize = sizesInfo.updateScratchSize;
-        m_Type = GetAccelerationStructureType(accelerationStructureDesc.type);
+        m_Type = GetAccelerationStructureTypeVk(accelerationStructureDesc.type);
         m_AccelerationStructureSize = sizesInfo.accelerationStructureSize;
     }
 

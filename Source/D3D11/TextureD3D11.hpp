@@ -78,7 +78,7 @@ Result TextureD3D11::Create(MemoryLocation memoryLocation, float priority) {
     RETURN_ON_BAD_HRESULT(&m_Device, hr, "ID3D11Device::CreateTextureXx()");
 
     // Priority
-    uint32_t evictionPriority = ConvertPriority(priority);
+    uint32_t evictionPriority = ConvertPriorityD3D11(priority);
     if (evictionPriority != 0)
         m_Texture->SetEvictionPriority(evictionPriority);
 

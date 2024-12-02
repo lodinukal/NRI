@@ -59,7 +59,7 @@ Result BufferD3D12::Create(const AllocateBufferDesc& bufferDesc) {
     }
 
     // Priority
-    D3D12_RESIDENCY_PRIORITY residencyPriority = (D3D12_RESIDENCY_PRIORITY)ConvertPriority(bufferDesc.memoryPriority);
+    D3D12_RESIDENCY_PRIORITY residencyPriority = (D3D12_RESIDENCY_PRIORITY)nri::ConvertPriorityD3D12(bufferDesc.memoryPriority);
     if (m_Device.GetVersion() >= 1 && residencyPriority != 0) {
         ID3D12Pageable* obj = m_Buffer.GetInterface();
         HRESULT hr = m_Device->SetResidencyPriority(1, &obj, &residencyPriority);
@@ -110,7 +110,7 @@ Result TextureD3D12::Create(const AllocateTextureDesc& textureDesc) {
     }
 
     // Priority
-    D3D12_RESIDENCY_PRIORITY residencyPriority = (D3D12_RESIDENCY_PRIORITY)ConvertPriority(textureDesc.memoryPriority);
+    D3D12_RESIDENCY_PRIORITY residencyPriority = (D3D12_RESIDENCY_PRIORITY)nri::ConvertPriorityD3D12(textureDesc.memoryPriority);
     if (m_Device.GetVersion() >= 1 && residencyPriority != 0) {
         ID3D12Pageable* obj = m_Texture.GetInterface();
         HRESULT hr = m_Device->SetResidencyPriority(1, &obj, &residencyPriority);

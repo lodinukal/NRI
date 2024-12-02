@@ -47,7 +47,7 @@ static void FillRasterizerState(D3D12_RASTERIZER_DESC& rasterizerDesc, const Gra
     const RasterizationDesc& r = graphicsPipelineDesc.rasterization;
 
     rasterizerDesc.FillMode = GetFillMode(r.fillMode);
-    rasterizerDesc.CullMode = GetCullMode(r.cullMode);
+    rasterizerDesc.CullMode = GetCullModeD3D12(r.cullMode);
     rasterizerDesc.FrontCounterClockwise = (BOOL)r.frontCounterClockwise;
     rasterizerDesc.DepthBias = (INT)r.depthBias.constant;
     rasterizerDesc.DepthBiasClamp = r.depthBias.clamp;
@@ -69,13 +69,13 @@ static void FillDepthStencilState(D3D12_DEPTH_STENCIL_DESC* depthStencilDesc, co
     depthStencilDesc->StencilEnable = (om.stencil.front.compareFunc == CompareFunc::NONE && om.stencil.back.compareFunc == CompareFunc::NONE) ? FALSE : TRUE;
     depthStencilDesc->StencilReadMask = (UINT8)om.stencil.front.compareMask;
     depthStencilDesc->StencilWriteMask = (UINT8)om.stencil.front.writeMask;
-    depthStencilDesc->FrontFace.StencilFailOp = GetStencilOp(om.stencil.front.fail);
-    depthStencilDesc->FrontFace.StencilDepthFailOp = GetStencilOp(om.stencil.front.depthFail);
-    depthStencilDesc->FrontFace.StencilPassOp = GetStencilOp(om.stencil.front.pass);
+    depthStencilDesc->FrontFace.StencilFailOp = GetStencilOpD3D12(om.stencil.front.fail);
+    depthStencilDesc->FrontFace.StencilDepthFailOp = GetStencilOpD3D12(om.stencil.front.depthFail);
+    depthStencilDesc->FrontFace.StencilPassOp = GetStencilOpD3D12(om.stencil.front.pass);
     depthStencilDesc->FrontFace.StencilFunc = GetComparisonFunc(om.stencil.front.compareFunc);
-    depthStencilDesc->BackFace.StencilFailOp = GetStencilOp(om.stencil.back.fail);
-    depthStencilDesc->BackFace.StencilDepthFailOp = GetStencilOp(om.stencil.back.depthFail);
-    depthStencilDesc->BackFace.StencilPassOp = GetStencilOp(om.stencil.back.pass);
+    depthStencilDesc->BackFace.StencilFailOp = GetStencilOpD3D12(om.stencil.back.fail);
+    depthStencilDesc->BackFace.StencilDepthFailOp = GetStencilOpD3D12(om.stencil.back.depthFail);
+    depthStencilDesc->BackFace.StencilPassOp = GetStencilOpD3D12(om.stencil.back.pass);
     depthStencilDesc->BackFace.StencilFunc = GetComparisonFunc(om.stencil.back.compareFunc);
 }
 
@@ -84,7 +84,7 @@ static void FillRasterizerState(D3D12_RASTERIZER_DESC1& rasterizerDesc, const Gr
     const RasterizationDesc& r = graphicsPipelineDesc.rasterization;
 
     rasterizerDesc.FillMode = GetFillMode(r.fillMode);
-    rasterizerDesc.CullMode = GetCullMode(r.cullMode);
+    rasterizerDesc.CullMode = GetCullModeD3D12(r.cullMode);
     rasterizerDesc.FrontCounterClockwise = (BOOL)r.frontCounterClockwise;
     rasterizerDesc.DepthBias = r.depthBias.constant;
     rasterizerDesc.DepthBiasClamp = r.depthBias.clamp;
@@ -104,15 +104,15 @@ static void FillDepthStencilState(D3D12_DEPTH_STENCIL_DESC2& depthStencilDesc, c
     depthStencilDesc.DepthWriteMask = om.depth.write ? D3D12_DEPTH_WRITE_MASK_ALL : D3D12_DEPTH_WRITE_MASK_ZERO;
     depthStencilDesc.DepthFunc = GetComparisonFunc(om.depth.compareFunc);
     depthStencilDesc.StencilEnable = (om.stencil.front.compareFunc == CompareFunc::NONE && om.stencil.back.compareFunc == CompareFunc::NONE) ? FALSE : TRUE;
-    depthStencilDesc.FrontFace.StencilFailOp = GetStencilOp(om.stencil.front.fail);
-    depthStencilDesc.FrontFace.StencilDepthFailOp = GetStencilOp(om.stencil.front.depthFail);
-    depthStencilDesc.FrontFace.StencilPassOp = GetStencilOp(om.stencil.front.pass);
+    depthStencilDesc.FrontFace.StencilFailOp = GetStencilOpD3D12(om.stencil.front.fail);
+    depthStencilDesc.FrontFace.StencilDepthFailOp = GetStencilOpD3D12(om.stencil.front.depthFail);
+    depthStencilDesc.FrontFace.StencilPassOp = GetStencilOpD3D12(om.stencil.front.pass);
     depthStencilDesc.FrontFace.StencilFunc = GetComparisonFunc(om.stencil.front.compareFunc);
     depthStencilDesc.FrontFace.StencilReadMask = om.stencil.front.compareMask;
     depthStencilDesc.FrontFace.StencilWriteMask = om.stencil.front.writeMask;
-    depthStencilDesc.BackFace.StencilFailOp = GetStencilOp(om.stencil.back.fail);
-    depthStencilDesc.BackFace.StencilDepthFailOp = GetStencilOp(om.stencil.back.depthFail);
-    depthStencilDesc.BackFace.StencilPassOp = GetStencilOp(om.stencil.back.pass);
+    depthStencilDesc.BackFace.StencilFailOp = GetStencilOpD3D12(om.stencil.back.fail);
+    depthStencilDesc.BackFace.StencilDepthFailOp = GetStencilOpD3D12(om.stencil.back.depthFail);
+    depthStencilDesc.BackFace.StencilPassOp = GetStencilOpD3D12(om.stencil.back.pass);
     depthStencilDesc.BackFace.StencilFunc = GetComparisonFunc(om.stencil.back.compareFunc);
     depthStencilDesc.BackFace.StencilReadMask = om.stencil.back.compareMask;
     depthStencilDesc.BackFace.StencilWriteMask = om.stencil.back.writeMask;
@@ -161,14 +161,14 @@ static void FillBlendState(D3D12_BLEND_DESC& blendDesc, const GraphicsPipelineDe
         blendDesc.RenderTarget[i].BlendEnable = colorAttachmentDesc.blendEnabled;
 
         if (colorAttachmentDesc.blendEnabled) {
-            blendDesc.RenderTarget[i].LogicOp = GetLogicOp(om.logicFunc);
+            blendDesc.RenderTarget[i].LogicOp = GetLogicOpD3D12(om.logicFunc);
             blendDesc.RenderTarget[i].LogicOpEnable = om.logicFunc != LogicFunc::NONE ? TRUE : FALSE;
             blendDesc.RenderTarget[i].SrcBlend = GetBlend(colorAttachmentDesc.colorBlend.srcFactor);
             blendDesc.RenderTarget[i].DestBlend = GetBlend(colorAttachmentDesc.colorBlend.dstFactor);
-            blendDesc.RenderTarget[i].BlendOp = GetBlendOp(colorAttachmentDesc.colorBlend.func);
+            blendDesc.RenderTarget[i].BlendOp = GetBlendOpD3D12(colorAttachmentDesc.colorBlend.func);
             blendDesc.RenderTarget[i].SrcBlendAlpha = GetBlend(colorAttachmentDesc.alphaBlend.srcFactor);
             blendDesc.RenderTarget[i].DestBlendAlpha = GetBlend(colorAttachmentDesc.alphaBlend.dstFactor);
-            blendDesc.RenderTarget[i].BlendOpAlpha = GetBlendOp(colorAttachmentDesc.alphaBlend.func);
+            blendDesc.RenderTarget[i].BlendOpAlpha = GetBlendOpD3D12(colorAttachmentDesc.alphaBlend.func);
         }
     }
 }

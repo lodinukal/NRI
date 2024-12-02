@@ -233,7 +233,7 @@ bool nri::GetBufferDesc(const BufferD3D11Desc& bufferD3D11Desc, BufferDesc& buff
     return true;
 }
 
-uint32_t nri::ConvertPriority(float priority) {
+uint32_t nri::ConvertPriorityD3D11(float priority) {
     if (priority == 0.0f)
         return 0;
 

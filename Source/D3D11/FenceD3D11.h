@@ -28,7 +28,7 @@ struct FenceD3D11 {
     // NRI
     //================================================================================================================
 
-    inline void FenceD3D11::SetDebugName(const char* name) {
+    inline void SetDebugName(const char* name) {
         SET_D3D_DEBUG_OBJECT_NAME(m_Fence, name);
         SET_D3D_DEBUG_OBJECT_NAME(m_Query, name);
     }
